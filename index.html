@@ -3,49 +3,513 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DuelRift Store</title>
+
+<title>DuelRift Game Store</title>
+
 <style>
-body{
-background:#0f172a;
-color:white;
-font-family:Arial,sans-serif;
-text-align:center;
-margin:0;
-padding:20px;
+* {
+  box-sizing: border-box;
 }
-h1{color:#00ffcc;}
-.card{
-background:#1e293b;
-padding:20px;
-margin:20px auto;
-max-width:500px;
-border-radius:15px;
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #080d1b;
+  color: white;
 }
-button{
-background:#00cc88;
-color:white;
-border:none;
-padding:12px 20px;
-border-radius:10px;
-font-size:18px;
-cursor:pointer;
+
+header {
+  text-align: center;
+  padding: 45px 20px 25px;
+}
+
+header h1 {
+  color: #00ffd0;
+  font-size: 42px;
+  margin: 0;
+}
+
+header p {
+  color: #9ba7bd;
+}
+
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 20px;
+}
+
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: #172237;
+  border: 1px solid #263650;
+  border-radius: 18px;
+  padding: 18px;
+  text-align: center;
+  transition: .2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 14px;
+  background: #0d1424;
+}
+
+.card h2 {
+  margin: 15px 0 8px;
+}
+
+.price {
+  color: #00ffd0;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.stock {
+  color: #9ba7bd;
+  margin: 8px;
+}
+
+button {
+  border: 0;
+  border-radius: 10px;
+  padding: 12px 20px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.order {
+  background: #00d99a;
+  color: white;
+  width: 100%;
+}
+
+.admin-button {
+  position: fixed;
+  right: 15px;
+  bottom: 15px;
+  background: #273653;
+  color: white;
+  z-index: 50;
+}
+
+.admin {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #080d1b;
+  overflow-y: auto;
+  padding: 25px;
+  z-index: 100;
+}
+
+.admin-box {
+  max-width: 700px;
+  margin: auto;
+}
+
+.admin h1 {
+  color: #00ffd0;
+}
+
+input {
+  width: 100%;
+  padding: 13px;
+  margin: 7px 0 15px;
+  border-radius: 9px;
+  border: 1px solid #34445f;
+  background: #111a2c;
+  color: white;
+}
+
+.admin-card {
+  background: #172237;
+  padding: 18px;
+  margin: 15px 0;
+  border-radius: 14px;
+}
+
+.save {
+  background: #00d99a;
+  color: white;
+}
+
+.delete {
+  background: #e74c3c;
+  color: white;
+  margin-left: 5px;
+}
+
+.close {
+  background: #34445f;
+  color: white;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid #29364e;
+  margin: 25px 0;
 }
 </style>
 </head>
+
 <body>
 
-<h1>🌱 DuelRift Game Store</h1>
+<header>
+  <h1>🌱 DuelRift Game Store</h1>
+  <p>Roblox Item Store</p>
+</header>
 
-<div class="card">
-<h2>Grow a Garden 2</h2>
-<p>Dragonfly ×3 — 1000₮</p>
-<p>Unicorn ×6 — 1500₮</p>
-<p>Fire Fly ×6 — 1500₮</p>
-
-<button onclick="window.location.href='https://m.me/YOURPAGE'">
-Order Now
-</button>
+<div class="container">
+  <div class="products" id="products"></div>
 </div>
+
+<button class="admin-button" onclick="openAdmin()">
+  ⚙️ Admin
+</button>
+
+<div class="admin" id="adminPanel">
+
+  <div class="admin-box">
+
+    <h1>⚙️ Admin Panel</h1>
+
+    <button class="close" onclick="closeAdmin()">
+      ← Website рүү буцах
+    </button>
+
+    <hr>
+
+    <h2>➕ Шинэ Item нэмэх</h2>
+
+    <label>Item нэр</label>
+    <input id="newName" placeholder="Жишээ: Dragonfly">
+
+    <label>Үнэ</label>
+    <input id="newPrice" type="number" placeholder="1000">
+
+    <label>Тоо хэмжээ</label>
+    <input id="newStock" type="number" placeholder="3">
+
+    <label>Зургийн URL</label>
+    <input id="newImage" placeholder="https://...">
+
+    <button class="save" onclick="addProduct()">
+      ➕ Item нэмэх
+    </button>
+
+    <hr>
+
+    <h2>📦 Item удирдах</h2>
+
+    <div id="adminProducts"></div>
+
+  </div>
+
+</div>
+
+<script>
+
+let products = JSON.parse(
+  localStorage.getItem("duelrift_products")
+) || [
+
+  {
+    id: 1,
+    name: "Dragonfly",
+    price: 1000,
+    stock: 3,
+    image: "https://placehold.co/600x400/172237/00ffd0?text=Dragonfly"
+  },
+
+  {
+    id: 2,
+    name: "Unicorn",
+    price: 1500,
+    stock: 6,
+    image: "https://placehold.co/600x400/172237/00ffd0?text=Unicorn"
+  },
+
+  {
+    id: 3,
+    name: "Fire Fly",
+    price: 1500,
+    stock: 6,
+    image: "https://placehold.co/600x400/172237/00ffd0?text=Fire+Fly"
+  }
+
+];
+
+function saveProducts() {
+  localStorage.setItem(
+    "duelrift_products",
+    JSON.stringify(products)
+  );
+}
+
+function showProducts() {
+
+  const box = document.getElementById("products");
+
+  box.innerHTML = "";
+
+  products.forEach(product => {
+
+    box.innerHTML += `
+      <div class="card">
+
+        <img
+          src="${product.image}"
+          alt="${product.name}"
+        >
+
+        <h2>${product.name}</h2>
+
+        <div class="price">
+          ${Number(product.price).toLocaleString()}₮
+        </div>
+
+        <div class="stock">
+          📦 ×${product.stock}
+        </div>
+
+        <button
+          class="order"
+          onclick="order('${product.name}')"
+        >
+          🛒 ORDER
+        </button>
+
+      </div>
+    `;
+
+  });
+}
+
+function order(name) {
+
+  alert(
+    "🛒 " + name +
+    " захиалах хүсэлт илгээгдлээ!"
+  );
+
+}
+
+function openAdmin() {
+
+  document.getElementById(
+    "adminPanel"
+  ).style.display = "block";
+
+  showAdmin();
+
+}
+
+function closeAdmin() {
+
+  document.getElementById(
+    "adminPanel"
+  ).style.display = "none";
+
+}
+
+function showAdmin() {
+
+  const box =
+    document.getElementById("adminProducts");
+
+  box.innerHTML = "";
+
+  products.forEach(product => {
+
+    box.innerHTML += `
+
+      <div class="admin-card">
+
+        <h3>📦 ${product.name}</h3>
+
+        <label>Item нэр</label>
+
+        <input
+          id="name-${product.id}"
+          value="${product.name}"
+        >
+
+        <label>Үнэ</label>
+
+        <input
+          id="price-${product.id}"
+          type="number"
+          value="${product.price}"
+        >
+
+        <label>Тоо хэмжээ</label>
+
+        <input
+          id="stock-${product.id}"
+          type="number"
+          value="${product.stock}"
+        >
+
+        <label>Зургийн URL</label>
+
+        <input
+          id="image-${product.id}"
+          value="${product.image}"
+        >
+
+        <button
+          class="save"
+          onclick="updateProduct(${product.id})"
+        >
+          💾 Хадгалах
+        </button>
+
+        <button
+          class="delete"
+          onclick="deleteProduct(${product.id})"
+        >
+          🗑️ Устгах
+        </button>
+
+      </div>
+
+    `;
+
+  });
+
+}
+
+function addProduct() {
+
+  const name =
+    document.getElementById("newName").value.trim();
+
+  const price =
+    Number(document.getElementById("newPrice").value);
+
+  const stock =
+    Number(document.getElementById("newStock").value);
+
+  const image =
+    document.getElementById("newImage").value.trim();
+
+  if (!name || !price) {
+
+    alert("⚠️ Item нэр болон үнэ оруулна уу.");
+
+    return;
+  }
+
+  products.push({
+
+    id: Date.now(),
+
+    name: name,
+
+    price: price,
+
+    stock: stock || 0,
+
+    image:
+      image ||
+      "https://placehold.co/600x400/172237/00ffd0?text=Item"
+
+  });
+
+  saveProducts();
+
+  showProducts();
+
+  showAdmin();
+
+  document.getElementById("newName").value = "";
+  document.getElementById("newPrice").value = "";
+  document.getElementById("newStock").value = "";
+  document.getElementById("newImage").value = "";
+
+  alert("✅ Item нэмэгдлээ!");
+
+}
+
+function updateProduct(id) {
+
+  const product =
+    products.find(p => p.id === id);
+
+  if (!product) return;
+
+  product.name =
+    document.getElementById(
+      "name-" + id
+    ).value;
+
+  product.price =
+    Number(
+      document.getElementById(
+        "price-" + id
+      ).value
+    );
+
+  product.stock =
+    Number(
+      document.getElementById(
+        "stock-" + id
+      ).value
+    );
+
+  product.image =
+    document.getElementById(
+      "image-" + id
+    ).value;
+
+  saveProducts();
+
+  showProducts();
+
+  showAdmin();
+
+  alert("✅ Item шинэчлэгдлээ!");
+
+}
+
+function deleteProduct(id) {
+
+  if (!confirm(
+    "Энэ item-ийг устгах уу?"
+  )) {
+    return;
+  }
+
+  products =
+    products.filter(
+      product => product.id !== id
+    );
+
+  saveProducts();
+
+  showProducts();
+
+  showAdmin();
+
+  alert("🗑️ Item устгагдлаа!");
+
+}
+
+showProducts();
+
+</script>
 
 </body>
 </html>
