@@ -4,162 +4,347 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>DuelRift Game Store</title>
+<title>DuelRift Store</title>
 
 <style>
-* {
-  box-sizing: border-box;
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Poppins:wght@400;500;600;700&display=swap');
+
+*{
+  box-sizing:border-box;
 }
 
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #080d1b;
-  color: white;
+html{
+  scroll-behavior:smooth;
 }
 
-header {
-  text-align: center;
-  padding: 45px 20px 25px;
+body{
+  margin:0;
+  color:white;
+  font-family:Poppins,Arial,sans-serif;
+  background:
+    radial-gradient(circle at 15% 10%,rgba(0,255,220,.12),transparent 30%),
+    radial-gradient(circle at 85% 20%,rgba(125,70,255,.15),transparent 30%),
+    linear-gradient(135deg,#050713,#0a1020 50%,#070914);
+  min-height:100vh;
 }
 
-header h1 {
-  color: #00ffd0;
-  font-size: 42px;
-  margin: 0;
+/* BACKGROUND GLOW */
+
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 50% 0%,rgba(0,255,210,.06),transparent 35%);
 }
 
-header p {
-  color: #9ba7bd;
+/* HEADER */
+
+header{
+  position:relative;
+  padding:55px 20px 35px;
+  text-align:center;
 }
 
-.container {
-  max-width: 1100px;
-  margin: auto;
-  padding: 20px;
+.logo{
+  font-family:Orbitron,sans-serif;
+  font-size:clamp(34px,8vw,70px);
+  font-weight:800;
+  letter-spacing:3px;
+  background:linear-gradient(90deg,#00ffe0,#8d5cff,#00ffe0);
+  background-size:200%;
+  -webkit-background-clip:text;
+  color:transparent;
+  animation:gradient 4s linear infinite;
 }
 
-.products {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
+@keyframes gradient{
+  0%{background-position:0%}
+  100%{background-position:200%}
 }
 
-.card {
-  background: #172237;
-  border: 1px solid #263650;
-  border-radius: 18px;
-  padding: 18px;
-  text-align: center;
-  transition: .2s;
+.subtitle{
+  color:#8995ad;
+  margin-top:10px;
+  font-size:15px;
 }
 
-.card:hover {
-  transform: translateY(-5px);
+/* NAV */
+
+nav{
+  max-width:1100px;
+  margin:0 auto 25px;
+  padding:0 20px;
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  flex-wrap:wrap;
 }
 
-.card img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 14px;
-  background: #0d1424;
+.nav-btn{
+  background:rgba(18,28,49,.75);
+  border:1px solid #263654;
+  color:#cbd5e8;
+  padding:10px 18px;
+  border-radius:12px;
+  cursor:pointer;
+  transition:.2s;
 }
 
-.card h2 {
-  margin: 15px 0 8px;
+.nav-btn:hover{
+  border-color:#00ffe0;
+  color:#00ffe0;
 }
 
-.price {
-  color: #00ffd0;
-  font-size: 22px;
-  font-weight: bold;
+/* CONTAINER */
+
+.container{
+  max-width:1150px;
+  margin:auto;
+  padding:20px;
 }
 
-.stock {
-  color: #9ba7bd;
-  margin: 8px;
+.section-title{
+  font-family:Orbitron,sans-serif;
+  text-align:center;
+  font-size:28px;
+  margin:20px 0 30px;
 }
 
-button {
-  border: 0;
-  border-radius: 10px;
-  padding: 12px 20px;
-  cursor: pointer;
-  font-weight: bold;
+/* PRODUCTS */
+
+.products{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:22px;
 }
 
-.order {
-  background: #00d99a;
-  color: white;
-  width: 100%;
+.card{
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(145deg,#111b30,#0d1527);
+  border:1px solid #263654;
+  border-radius:22px;
+  padding:14px;
+  transition:.3s;
+  box-shadow:0 15px 40px rgba(0,0,0,.25);
 }
 
-.admin-button {
-  position: fixed;
-  right: 15px;
-  bottom: 15px;
-  background: #273653;
-  color: white;
-  z-index: 50;
+.card:before{
+  content:"";
+  position:absolute;
+  width:150px;
+  height:150px;
+  background:#00ffe0;
+  filter:blur(80px);
+  opacity:.07;
+  top:-50px;
+  right:-50px;
 }
 
-.admin {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: #080d1b;
-  overflow-y: auto;
-  padding: 25px;
-  z-index: 100;
+.card:hover{
+  transform:translateY(-8px);
+  border-color:#00ffe0;
+  box-shadow:
+    0 0 25px rgba(0,255,224,.12),
+    0 20px 50px rgba(0,0,0,.35);
 }
 
-.admin-box {
-  max-width: 700px;
-  margin: auto;
+.item-image{
+  width:100%;
+  height:210px;
+  object-fit:cover;
+  border-radius:16px;
+  background:#070b15;
+  display:block;
 }
 
-.admin h1 {
-  color: #00ffd0;
+.item-name{
+  font-family:Orbitron,sans-serif;
+  font-size:20px;
+  margin:17px 5px 7px;
 }
 
-input {
-  width: 100%;
-  padding: 13px;
-  margin: 7px 0 15px;
-  border-radius: 9px;
-  border: 1px solid #34445f;
-  background: #111a2c;
-  color: white;
+.price{
+  color:#00ffe0;
+  font-size:24px;
+  font-weight:700;
+  margin:5px;
 }
 
-.admin-card {
-  background: #172237;
-  padding: 18px;
-  margin: 15px 0;
-  border-radius: 14px;
+.stock{
+  color:#8995ad;
+  font-size:14px;
+  margin:8px 5px 15px;
 }
 
-.save {
-  background: #00d99a;
-  color: white;
+.order{
+  width:100%;
+  padding:14px;
+  border:0;
+  border-radius:13px;
+  color:#04100e;
+  font-size:15px;
+  font-weight:800;
+  cursor:pointer;
+  background:linear-gradient(90deg,#00ffd5,#00bfff);
+  transition:.2s;
 }
 
-.delete {
-  background: #e74c3c;
-  color: white;
-  margin-left: 5px;
+.order:hover{
+  transform:scale(1.02);
+  box-shadow:0 0 22px rgba(0,255,220,.3);
 }
 
-.close {
-  background: #34445f;
-  color: white;
+/* BADGE */
+
+.badge{
+  position:absolute;
+  top:25px;
+  left:25px;
+  background:linear-gradient(90deg,#7b4dff,#b05cff);
+  padding:6px 10px;
+  border-radius:8px;
+  font-size:11px;
+  font-weight:700;
+  z-index:2;
 }
 
-hr {
-  border: 0;
-  border-top: 1px solid #29364e;
-  margin: 25px 0;
+/* FOOTER */
+
+footer{
+  text-align:center;
+  padding:55px 20px 30px;
+  color:#65738d;
+  font-size:13px;
+}
+
+/* ADMIN BUTTON */
+
+.admin-button{
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  z-index:50;
+  background:#111c31;
+  color:#fff;
+  border:1px solid #344666;
+  border-radius:14px;
+  padding:12px 17px;
+  cursor:pointer;
+  box-shadow:0 8px 25px rgba(0,0,0,.4);
+}
+
+.admin-button:hover{
+  border-color:#00ffe0;
+  color:#00ffe0;
+}
+
+/* ADMIN */
+
+.admin{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:100;
+  overflow-y:auto;
+  background:
+    radial-gradient(circle at 20% 10%,rgba(0,255,220,.08),transparent 30%),
+    #060a14;
+  padding:25px 15px;
+}
+
+.admin-box{
+  max-width:750px;
+  margin:auto;
+}
+
+.admin-title{
+  font-family:Orbitron,sans-serif;
+  color:#00ffe0;
+  font-size:30px;
+}
+
+.admin-card{
+  background:#111b2e;
+  border:1px solid #263654;
+  border-radius:18px;
+  padding:20px;
+  margin:18px 0;
+}
+
+input{
+  width:100%;
+  padding:13px;
+  margin:7px 0 15px;
+  background:#080e1c;
+  color:white;
+  border:1px solid #2b3c5b;
+  border-radius:10px;
+  outline:none;
+}
+
+input:focus{
+  border-color:#00ffe0;
+}
+
+.save{
+  background:#00d9a0;
+  color:#03100d;
+  border:0;
+  padding:11px 16px;
+  border-radius:10px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.delete{
+  background:#d94350;
+  color:white;
+  border:0;
+  padding:11px 16px;
+  border-radius:10px;
+  font-weight:700;
+  cursor:pointer;
+  margin-left:5px;
+}
+
+.close{
+  background:#202d45;
+  color:white;
+  border:1px solid #344666;
+  padding:11px 17px;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+hr{
+  border:0;
+  border-top:1px solid #263654;
+  margin:28px 0;
+}
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+  header{
+    padding-top:40px;
+  }
+
+  .logo{
+    font-size:36px;
+  }
+
+  .products{
+    grid-template-columns:1fr;
+  }
+
+  .item-image{
+    height:220px;
+  }
+
 }
 </style>
 </head>
@@ -167,51 +352,104 @@ hr {
 <body>
 
 <header>
-  <h1>🌱 DuelRift Game Store</h1>
-  <p>Roblox Item Store</p>
+
+  <div class="logo">
+    ⚡ DUELRIFT STORE
+  </div>
+
+  <div class="subtitle">
+    Premium Roblox Items • Fast Delivery • Trusted Store
+  </div>
+
 </header>
 
-<div class="container">
+<nav>
+  <button class="nav-btn" onclick="scrollToShop()">
+    🛒 SHOP
+  </button>
+
+  <button class="nav-btn" onclick="openAdmin()">
+    ⚙️ ADMIN
+  </button>
+</nav>
+
+<div class="container" id="shop">
+
+  <div class="section-title">
+    🔥 FEATURED ITEMS
+  </div>
+
   <div class="products" id="products"></div>
+
 </div>
+
+<footer>
+  © 2026 DuelRift Store
+  <br>
+  Game Items • Roblox
+</footer>
 
 <button class="admin-button" onclick="openAdmin()">
   ⚙️ Admin
 </button>
 
+<!-- ADMIN PANEL -->
+
 <div class="admin" id="adminPanel">
 
   <div class="admin-box">
 
-    <h1>⚙️ Admin Panel</h1>
+    <h1 class="admin-title">
+      ⚙️ DUELRIFT ADMIN
+    </h1>
 
     <button class="close" onclick="closeAdmin()">
-      ← Website рүү буцах
+      ← BACK TO STORE
     </button>
 
     <hr>
 
-    <h2>➕ Шинэ Item нэмэх</h2>
+    <div class="admin-card">
 
-    <label>Item нэр</label>
-    <input id="newName" placeholder="Жишээ: Dragonfly">
+      <h2>➕ Add New Item</h2>
 
-    <label>Үнэ</label>
-    <input id="newPrice" type="number" placeholder="1000">
+      <label>Item name</label>
 
-    <label>Тоо хэмжээ</label>
-    <input id="newStock" type="number" placeholder="3">
+      <input
+        id="newName"
+        placeholder="Dragonfly"
+      >
 
-    <label>Зургийн URL</label>
-    <input id="newImage" placeholder="https://...">
+      <label>Price</label>
 
-    <button class="save" onclick="addProduct()">
-      ➕ Item нэмэх
-    </button>
+      <input
+        id="newPrice"
+        type="number"
+        placeholder="1000"
+      >
 
-    <hr>
+      <label>Stock</label>
 
-    <h2>📦 Item удирдах</h2>
+      <input
+        id="newStock"
+        type="number"
+        placeholder="3"
+      >
+
+      <label>Image URL</label>
+
+      <input
+        id="newImage"
+        placeholder="https://..."
+      >
+
+      <button class="save" onclick="addProduct()">
+        ➕ ADD ITEM
+      </button>
+
+    </div>
+
+    <h2>📦 Manage Items</h2>
 
     <div id="adminProducts"></div>
 
@@ -221,132 +459,173 @@ hr {
 
 <script>
 
+/* PRODUCTS */
+
 let products = JSON.parse(
   localStorage.getItem("duelrift_products")
 ) || [
 
   {
-    id: 1,
-    name: "Dragonfly",
-    price: 1000,
-    stock: 3,
-    image: "https://placehold.co/600x400/172237/00ffd0?text=Dragonfly"
+    id:1,
+    name:"Dragonfly",
+    price:1000,
+    stock:3,
+    image:"https://placehold.co/800x500/101b30/00ffe0?text=DRAGONFLY",
+    popular:true
   },
 
   {
-    id: 2,
-    name: "Unicorn",
-    price: 1500,
-    stock: 6,
-    image: "https://placehold.co/600x400/172237/00ffd0?text=Unicorn"
+    id:2,
+    name:"Unicorn",
+    price:1500,
+    stock:6,
+    image:"https://placehold.co/800x500/101b30/8d5cff?text=UNICORN",
+    popular:true
   },
 
   {
-    id: 3,
-    name: "Fire Fly",
-    price: 1500,
-    stock: 6,
-    image: "https://placehold.co/600x400/172237/00ffd0?text=Fire+Fly"
+    id:3,
+    name:"Fire Fly",
+    price:1500,
+    stock:6,
+    image:"https://placehold.co/800x500/101b30/ff5c8a?text=FIRE+FLY",
+    popular:false
   }
 
 ];
 
-function saveProducts() {
+
+/* SAVE */
+
+function saveProducts(){
+
   localStorage.setItem(
     "duelrift_products",
     JSON.stringify(products)
   );
+
 }
 
-function showProducts() {
 
-  const box = document.getElementById("products");
+/* SHOW PRODUCTS */
 
-  box.innerHTML = "";
+function showProducts(){
 
-  products.forEach(product => {
+  const box =
+    document.getElementById("products");
+
+  box.innerHTML="";
+
+  products.forEach(product=>{
 
     box.innerHTML += `
+
       <div class="card">
 
+        ${
+          product.popular
+          ? '<div class="badge">🔥 POPULAR</div>'
+          : ''
+        }
+
         <img
+          class="item-image"
           src="${product.image}"
           alt="${product.name}"
         >
 
-        <h2>${product.name}</h2>
+        <div class="item-name">
+          ${product.name}
+        </div>
 
         <div class="price">
           ${Number(product.price).toLocaleString()}₮
         </div>
 
         <div class="stock">
-          📦 ×${product.stock}
+          📦 Stock: ${product.stock}
         </div>
 
         <button
           class="order"
-          onclick="order('${product.name}')"
+          onclick="orderItem('${product.name}')"
         >
-          🛒 ORDER
+          🛒 ORDER NOW
         </button>
 
       </div>
+
     `;
 
   });
+
 }
 
-function order(name) {
+
+/* ORDER */
+
+function orderItem(name){
 
   alert(
-    "🛒 " + name +
-    " захиалах хүсэлт илгээгдлээ!"
+    "🛒 " +
+    name +
+    " захиалах хэсэг удахгүй нээгдэнэ!"
   );
 
 }
 
-function openAdmin() {
+
+/* ADMIN OPEN */
+
+function openAdmin(){
 
   document.getElementById(
     "adminPanel"
-  ).style.display = "block";
+  ).style.display="block";
 
   showAdmin();
 
 }
 
-function closeAdmin() {
+
+/* ADMIN CLOSE */
+
+function closeAdmin(){
 
   document.getElementById(
     "adminPanel"
-  ).style.display = "none";
+  ).style.display="none";
 
 }
 
-function showAdmin() {
+
+/* ADMIN ITEMS */
+
+function showAdmin(){
 
   const box =
     document.getElementById("adminProducts");
 
-  box.innerHTML = "";
+  box.innerHTML="";
 
-  products.forEach(product => {
+  products.forEach(product=>{
 
     box.innerHTML += `
 
       <div class="admin-card">
 
-        <h3>📦 ${product.name}</h3>
+        <h3>
+          📦 ${product.name}
+        </h3>
 
-        <label>Item нэр</label>
+        <label>Name</label>
 
         <input
           id="name-${product.id}"
           value="${product.name}"
         >
 
-        <label>Үнэ</label>
+        <label>Price</label>
 
         <input
           id="price-${product.id}"
@@ -354,7 +633,7 @@ function showAdmin() {
           value="${product.price}"
         >
 
-        <label>Тоо хэмжээ</label>
+        <label>Stock</label>
 
         <input
           id="stock-${product.id}"
@@ -362,7 +641,7 @@ function showAdmin() {
           value="${product.stock}"
         >
 
-        <label>Зургийн URL</label>
+        <label>Image URL</label>
 
         <input
           id="image-${product.id}"
@@ -373,14 +652,14 @@ function showAdmin() {
           class="save"
           onclick="updateProduct(${product.id})"
         >
-          💾 Хадгалах
+          💾 SAVE
         </button>
 
         <button
           class="delete"
           onclick="deleteProduct(${product.id})"
         >
-          🗑️ Устгах
+          🗑️ DELETE
         </button>
 
       </div>
@@ -391,42 +670,64 @@ function showAdmin() {
 
 }
 
-function addProduct() {
+
+/* ADD */
+
+function addProduct(){
 
   const name =
-    document.getElementById("newName").value.trim();
+    document.getElementById(
+      "newName"
+    ).value.trim();
 
   const price =
-    Number(document.getElementById("newPrice").value);
+    Number(
+      document.getElementById(
+        "newPrice"
+      ).value
+    );
 
   const stock =
-    Number(document.getElementById("newStock").value);
+    Number(
+      document.getElementById(
+        "newStock"
+      ).value
+    );
 
   const image =
-    document.getElementById("newImage").value.trim();
+    document.getElementById(
+      "newImage"
+    ).value.trim();
 
-  if (!name || !price) {
 
-    alert("⚠️ Item нэр болон үнэ оруулна уу.");
+  if(!name || !price){
+
+    alert(
+      "⚠️ Item name болон price оруулна уу."
+    );
 
     return;
   }
 
+
   products.push({
 
-    id: Date.now(),
+    id:Date.now(),
 
-    name: name,
+    name:name,
 
-    price: price,
+    price:price,
 
-    stock: stock || 0,
+    stock:stock || 0,
 
     image:
       image ||
-      "https://placehold.co/600x400/172237/00ffd0?text=Item"
+      "https://placehold.co/800x500/101b30/00ffe0?text=NEW+ITEM",
+
+    popular:false
 
   });
+
 
   saveProducts();
 
@@ -434,45 +735,65 @@ function addProduct() {
 
   showAdmin();
 
-  document.getElementById("newName").value = "";
-  document.getElementById("newPrice").value = "";
-  document.getElementById("newStock").value = "";
-  document.getElementById("newImage").value = "";
+
+  document.getElementById(
+    "newName"
+  ).value="";
+
+  document.getElementById(
+    "newPrice"
+  ).value="";
+
+  document.getElementById(
+    "newStock"
+  ).value="";
+
+  document.getElementById(
+    "newImage"
+  ).value="";
+
 
   alert("✅ Item нэмэгдлээ!");
 
 }
 
-function updateProduct(id) {
+
+/* UPDATE */
+
+function updateProduct(id){
 
   const product =
-    products.find(p => p.id === id);
+    products.find(
+      p=>p.id===id
+    );
 
-  if (!product) return;
+  if(!product)return;
+
 
   product.name =
     document.getElementById(
-      "name-" + id
+      "name-"+id
     ).value;
 
   product.price =
     Number(
       document.getElementById(
-        "price-" + id
+        "price-"+id
       ).value
     );
 
   product.stock =
     Number(
       document.getElementById(
-        "stock-" + id
+        "stock-"+id
       ).value
     );
 
   product.image =
     document.getElementById(
-      "image-" + id
+      "image-"+id
     ).value;
+
 
   saveProducts();
 
@@ -484,18 +805,25 @@ function updateProduct(id) {
 
 }
 
-function deleteProduct(id) {
 
-  if (!confirm(
-    "Энэ item-ийг устгах уу?"
-  )) {
+/* DELETE */
+
+function deleteProduct(id){
+
+  if(
+    !confirm(
+      "Энэ item-ийг устгах уу?"
+    )
+  ){
     return;
   }
 
+
   products =
     products.filter(
-      product => product.id !== id
+      p=>p.id!==id
     );
+
 
   saveProducts();
 
@@ -503,9 +831,23 @@ function deleteProduct(id) {
 
   showAdmin();
 
-  alert("🗑️ Item устгагдлаа!");
+}
+
+
+/* SCROLL */
+
+function scrollToShop(){
+
+  document.getElementById(
+    "shop"
+  ).scrollIntoView({
+    behavior:"smooth"
+  });
 
 }
+
+
+/* START */
 
 showProducts();
 
