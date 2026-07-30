@@ -7,344 +7,178 @@
 <title>DuelRift Store</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Poppins:wght@400;500;600;700&display=swap');
-
-*{
-  box-sizing:border-box;
-}
-
-html{
-  scroll-behavior:smooth;
-}
+*{box-sizing:border-box}
 
 body{
   margin:0;
+  font-family:Arial,sans-serif;
+  background:
+    radial-gradient(circle at 20% 0%,#123b4a,transparent 35%),
+    radial-gradient(circle at 90% 20%,#29154d,transparent 35%),
+    #060914;
   color:white;
-  font-family:Poppins,Arial,sans-serif;
-  background:
-    radial-gradient(circle at 15% 10%,rgba(0,255,220,.12),transparent 30%),
-    radial-gradient(circle at 85% 20%,rgba(125,70,255,.15),transparent 30%),
-    linear-gradient(135deg,#050713,#0a1020 50%,#070914);
-  min-height:100vh;
 }
-
-/* BACKGROUND GLOW */
-
-body:before{
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  background:
-    radial-gradient(circle at 50% 0%,rgba(0,255,210,.06),transparent 35%);
-}
-
-/* HEADER */
 
 header{
-  position:relative;
-  padding:55px 20px 35px;
+  padding:35px 20px;
   text-align:center;
 }
 
 .logo{
-  font-family:Orbitron,sans-serif;
-  font-size:clamp(34px,8vw,70px);
-  font-weight:800;
-  letter-spacing:3px;
-  background:linear-gradient(90deg,#00ffe0,#8d5cff,#00ffe0);
-  background-size:200%;
-  -webkit-background-clip:text;
-  color:transparent;
-  animation:gradient 4s linear infinite;
-}
-
-@keyframes gradient{
-  0%{background-position:0%}
-  100%{background-position:200%}
-}
-
-.subtitle{
-  color:#8995ad;
-  margin-top:10px;
-  font-size:15px;
-}
-
-/* NAV */
-
-nav{
-  max-width:1100px;
-  margin:0 auto 25px;
-  padding:0 20px;
-  display:flex;
-  justify-content:center;
-  gap:12px;
-  flex-wrap:wrap;
-}
-
-.nav-btn{
-  background:rgba(18,28,49,.75);
-  border:1px solid #263654;
-  color:#cbd5e8;
-  padding:10px 18px;
-  border-radius:12px;
-  cursor:pointer;
-  transition:.2s;
-}
-
-.nav-btn:hover{
-  border-color:#00ffe0;
+  font-size:42px;
+  font-weight:900;
   color:#00ffe0;
+  text-shadow:0 0 25px #00ffe055;
 }
 
-/* CONTAINER */
+header p{
+  color:#8995aa;
+}
 
 .container{
-  max-width:1150px;
+  max-width:1100px;
   margin:auto;
   padding:20px;
 }
 
-.section-title{
-  font-family:Orbitron,sans-serif;
-  text-align:center;
-  font-size:28px;
-  margin:20px 0 30px;
+.topbar{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:30px;
 }
 
-/* PRODUCTS */
+button{
+  border:0;
+  border-radius:10px;
+  padding:12px 18px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.btn{
+  background:#132138;
+  color:white;
+  border:1px solid #2b3e5d;
+}
+
+.primary{
+  background:#00e0b5;
+  color:#03100d;
+}
 
 .products{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-  gap:22px;
+  gap:20px;
 }
 
 .card{
-  position:relative;
-  overflow:hidden;
-  background:linear-gradient(145deg,#111b30,#0d1527);
-  border:1px solid #263654;
-  border-radius:22px;
-  padding:14px;
-  transition:.3s;
-  box-shadow:0 15px 40px rgba(0,0,0,.25);
-}
-
-.card:before{
-  content:"";
-  position:absolute;
-  width:150px;
-  height:150px;
-  background:#00ffe0;
-  filter:blur(80px);
-  opacity:.07;
-  top:-50px;
-  right:-50px;
+  background:#111a2c;
+  border:1px solid #263957;
+  border-radius:18px;
+  padding:15px;
+  transition:.2s;
 }
 
 .card:hover{
-  transform:translateY(-8px);
+  transform:translateY(-5px);
   border-color:#00ffe0;
-  box-shadow:
-    0 0 25px rgba(0,255,224,.12),
-    0 20px 50px rgba(0,0,0,.35);
 }
 
-.item-image{
+.card img{
   width:100%;
-  height:210px;
+  height:190px;
   object-fit:cover;
-  border-radius:16px;
-  background:#070b15;
-  display:block;
+  border-radius:13px;
 }
 
-.item-name{
-  font-family:Orbitron,sans-serif;
-  font-size:20px;
-  margin:17px 5px 7px;
+.card h2{
+  margin:15px 0 7px;
 }
 
 .price{
   color:#00ffe0;
-  font-size:24px;
-  font-weight:700;
-  margin:5px;
+  font-size:23px;
+  font-weight:bold;
 }
 
 .stock{
-  color:#8995ad;
-  font-size:14px;
-  margin:8px 5px 15px;
+  color:#8995aa;
+  margin:8px 0 15px;
 }
 
-.order{
+.buy{
   width:100%;
-  padding:14px;
-  border:0;
-  border-radius:13px;
-  color:#04100e;
-  font-size:15px;
-  font-weight:800;
-  cursor:pointer;
-  background:linear-gradient(90deg,#00ffd5,#00bfff);
-  transition:.2s;
+  background:linear-gradient(90deg,#00e0b5,#00bfff);
+  color:#02100d;
 }
 
-.order:hover{
-  transform:scale(1.02);
-  box-shadow:0 0 22px rgba(0,255,220,.3);
-}
-
-/* BADGE */
-
-.badge{
-  position:absolute;
-  top:25px;
-  left:25px;
-  background:linear-gradient(90deg,#7b4dff,#b05cff);
-  padding:6px 10px;
-  border-radius:8px;
-  font-size:11px;
-  font-weight:700;
-  z-index:2;
-}
-
-/* FOOTER */
-
-footer{
-  text-align:center;
-  padding:55px 20px 30px;
-  color:#65738d;
-  font-size:13px;
-}
-
-/* ADMIN BUTTON */
-
-.admin-button{
-  position:fixed;
-  right:18px;
-  bottom:18px;
-  z-index:50;
-  background:#111c31;
-  color:#fff;
-  border:1px solid #344666;
-  border-radius:14px;
-  padding:12px 17px;
-  cursor:pointer;
-  box-shadow:0 8px 25px rgba(0,0,0,.4);
-}
-
-.admin-button:hover{
-  border-color:#00ffe0;
-  color:#00ffe0;
-}
-
-/* ADMIN */
-
-.admin{
+.modal{
   display:none;
   position:fixed;
   inset:0;
-  z-index:100;
-  overflow-y:auto;
-  background:
-    radial-gradient(circle at 20% 10%,rgba(0,255,220,.08),transparent 30%),
-    #060a14;
-  padding:25px 15px;
-}
-
-.admin-box{
-  max-width:750px;
-  margin:auto;
-}
-
-.admin-title{
-  font-family:Orbitron,sans-serif;
-  color:#00ffe0;
-  font-size:30px;
-}
-
-.admin-card{
-  background:#111b2e;
-  border:1px solid #263654;
-  border-radius:18px;
+  background:#000b;
+  z-index:20;
   padding:20px;
-  margin:18px 0;
+  overflow:auto;
+}
+
+.modal-box{
+  max-width:450px;
+  margin:60px auto;
+  background:#101a2c;
+  border:1px solid #304564;
+  border-radius:18px;
+  padding:25px;
+}
+
+.modal-box h2{
+  color:#00ffe0;
 }
 
 input{
   width:100%;
   padding:13px;
   margin:7px 0 15px;
-  background:#080e1c;
+  border-radius:9px;
+  border:1px solid #344968;
+  background:#080e1b;
   color:white;
-  border:1px solid #2b3c5b;
-  border-radius:10px;
-  outline:none;
 }
 
-input:focus{
-  border-color:#00ffe0;
+.qr{
+  width:220px;
+  height:220px;
+  display:block;
+  margin:20px auto;
+  background:#202b40;
+  object-fit:cover;
 }
 
-.save{
-  background:#00d9a0;
-  color:#03100d;
-  border:0;
-  padding:11px 16px;
+.notice{
+  padding:13px;
+  background:#16243a;
   border-radius:10px;
-  font-weight:700;
-  cursor:pointer;
-}
-
-.delete{
-  background:#d94350;
-  color:white;
-  border:0;
-  padding:11px 16px;
-  border-radius:10px;
-  font-weight:700;
-  cursor:pointer;
-  margin-left:5px;
+  color:#aebbd0;
+  font-size:14px;
+  line-height:1.5;
 }
 
 .close{
-  background:#202d45;
+  background:#27364e;
   color:white;
-  border:1px solid #344666;
-  padding:11px 17px;
-  border-radius:10px;
-  cursor:pointer;
+  margin-top:10px;
 }
 
-hr{
-  border:0;
-  border-top:1px solid #263654;
-  margin:28px 0;
+.account{
+  color:#00ffe0;
+  font-weight:bold;
 }
 
-/* MOBILE */
-
-@media(max-width:600px){
-
-  header{
-    padding-top:40px;
-  }
-
-  .logo{
-    font-size:36px;
-  }
-
-  .products{
-    grid-template-columns:1fr;
-  }
-
-  .item-image{
-    height:220px;
-  }
-
+.hidden{
+  display:none;
 }
 </style>
 </head>
@@ -352,194 +186,235 @@ hr{
 <body>
 
 <header>
-
-  <div class="logo">
-    ⚡ DUELRIFT STORE
-  </div>
-
-  <div class="subtitle">
-    Premium Roblox Items • Fast Delivery • Trusted Store
-  </div>
-
+  <div class="logo">⚡ DUELRIFT STORE</div>
+  <p>Roblox Digital Store</p>
 </header>
 
-<nav>
-  <button class="nav-btn" onclick="scrollToShop()">
-    🛒 SHOP
-  </button>
+<div class="container">
 
-  <button class="nav-btn" onclick="openAdmin()">
-    ⚙️ ADMIN
-  </button>
-</nav>
+  <div class="topbar">
 
-<div class="container" id="shop">
+    <button class="btn" onclick="openLogin()">
+      🔐 Login
+    </button>
 
-  <div class="section-title">
-    🔥 FEATURED ITEMS
+    <button class="btn" onclick="openRegister()">
+      👤 Register
+    </button>
+
+    <button class="btn hidden" id="profileBtn" onclick="openProfile()">
+      👤 <span id="usernameText"></span>
+    </button>
+
+    <button class="btn hidden" id="logoutBtn" onclick="logout()">
+      Logout
+    </button>
+
   </div>
 
   <div class="products" id="products"></div>
 
 </div>
 
-<footer>
-  © 2026 DuelRift Store
-  <br>
-  Game Items • Roblox
-</footer>
 
-<button class="admin-button" onclick="openAdmin()">
-  ⚙️ Admin
-</button>
+<!-- REGISTER -->
 
-<!-- ADMIN PANEL -->
+<div class="modal" id="registerModal">
 
-<div class="admin" id="adminPanel">
+  <div class="modal-box">
 
-  <div class="admin-box">
+    <h2>👤 Create Account</h2>
 
-    <h1 class="admin-title">
-      ⚙️ DUELRIFT ADMIN
-    </h1>
+    <input id="regUsername" placeholder="Username">
 
-    <button class="close" onclick="closeAdmin()">
-      ← BACK TO STORE
+    <input id="regEmail" type="email" placeholder="Email">
+
+    <input id="regPassword" type="password" placeholder="Password">
+
+    <button class="primary" onclick="register()">
+      CREATE ACCOUNT
     </button>
 
-    <hr>
+    <br><br>
 
-    <div class="admin-card">
-
-      <h2>➕ Add New Item</h2>
-
-      <label>Item name</label>
-
-      <input
-        id="newName"
-        placeholder="Dragonfly"
-      >
-
-      <label>Price</label>
-
-      <input
-        id="newPrice"
-        type="number"
-        placeholder="1000"
-      >
-
-      <label>Stock</label>
-
-      <input
-        id="newStock"
-        type="number"
-        placeholder="3"
-      >
-
-      <label>Image URL</label>
-
-      <input
-        id="newImage"
-        placeholder="https://..."
-      >
-
-      <button class="save" onclick="addProduct()">
-        ➕ ADD ITEM
-      </button>
-
-    </div>
-
-    <h2>📦 Manage Items</h2>
-
-    <div id="adminProducts"></div>
+    <button class="close" onclick="closeAll()">
+      Close
+    </button>
 
   </div>
 
 </div>
 
+
+<!-- LOGIN -->
+
+<div class="modal" id="loginModal">
+
+  <div class="modal-box">
+
+    <h2>🔐 Login</h2>
+
+    <input id="loginEmail" type="email" placeholder="Email">
+
+    <input id="loginPassword" type="password" placeholder="Password">
+
+    <button class="primary" onclick="login()">
+      LOGIN
+    </button>
+
+    <br><br>
+
+    <button class="close" onclick="closeAll()">
+      Close
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- CHECKOUT -->
+
+<div class="modal" id="checkoutModal">
+
+  <div class="modal-box">
+
+    <h2>🛒 Checkout</h2>
+
+    <p>
+      Item:
+      <span class="account" id="checkoutName"></span>
+    </p>
+
+    <p>
+      Үнэ:
+      <span class="account" id="checkoutPrice"></span>
+    </p>
+
+    <div class="notice">
+      QPay төлбөрийг backend-ээр баталгаажуулсны
+      дараа захиалга амжилттай болно.
+    </div>
+
+    <div class="qr">
+      <!-- Энд жинхэнэ QPay QR-г backend-ээс оруулна -->
+      <div style="padding:80px 15px;text-align:center;color:#8995aa">
+        QPay QR
+      </div>
+    </div>
+
+    <button class="primary" style="width:100%"
+      onclick="checkPayment()">
+      💳 PAYMENT CHECK
+    </button>
+
+    <button class="close" style="width:100%"
+      onclick="closeAll()">
+      Close
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- DELIVERY -->
+
+<div class="modal" id="deliveryModal">
+
+  <div class="modal-box">
+
+    <h2>✅ Order Complete</h2>
+
+    <p>Төлбөр баталгаажлаа.</p>
+
+    <div class="notice">
+      Таны худалдан авсан бүтээгдэхүүний
+      хүргэлтийг энд харуулна.
+    </div>
+
+    <br>
+
+    <button class="primary"
+      onclick="showDelivery()">
+      📦 View Delivery
+    </button>
+
+    <p id="deliveryText"></p>
+
+    <button class="close"
+      onclick="closeAll()">
+      Close
+    </button>
+
+  </div>
+
+</div>
+
+
 <script>
 
-/* PRODUCTS */
+/*
+  DEMO DATA
 
-let products = JSON.parse(
-  localStorage.getItem("duelrift_products")
-) || [
+  Жинхэнэ хэрэглэгчийн password,
+  QPay мэдээлэл энд хадгалах ёсгүй.
+*/
+
+const products = [
 
   {
     id:1,
-    name:"Dragonfly",
-    price:1000,
+    name:"Dragonfly Account",
+    price:4000,
     stock:3,
-    image:"https://placehold.co/800x500/101b30/00ffe0?text=DRAGONFLY",
-    popular:true
+    image:"https://placehold.co/700x450/111a2c/00ffe0?text=DRAGONFLY"
   },
 
   {
     id:2,
-    name:"Unicorn",
-    price:1500,
-    stock:6,
-    image:"https://placehold.co/800x500/101b30/8d5cff?text=UNICORN",
-    popular:true
+    name:"Unicorn Account",
+    price:8000,
+    stock:2,
+    image:"https://placehold.co/700x450/111a2c/8d5cff?text=UNICORN"
   },
 
   {
     id:3,
-    name:"Fire Fly",
-    price:1500,
-    stock:6,
-    image:"https://placehold.co/800x500/101b30/ff5c8a?text=FIRE+FLY",
-    popular:false
+    name:"Fire Fly Account",
+    price:11500,
+    stock:5,
+    image:"https://placehold.co/700x450/111a2c/ff5c8a?text=FIRE+FLY"
   }
 
 ];
 
 
-/* SAVE */
-
-function saveProducts(){
-
-  localStorage.setItem(
-    "duelrift_products",
-    JSON.stringify(products)
-  );
-
-}
+let selectedProduct = null;
+let currentUser = null;
 
 
-/* SHOW PRODUCTS */
+/* PRODUCTS */
 
 function showProducts(){
 
   const box =
     document.getElementById("products");
 
-  box.innerHTML="";
+  box.innerHTML = "";
 
-  products.forEach(product=>{
+  products.forEach(product => {
 
     box.innerHTML += `
 
       <div class="card">
 
-        ${
-          product.popular
-          ? '<div class="badge">🔥 POPULAR</div>'
-          : ''
-        }
+        <img src="${product.image}">
 
-        <img
-          class="item-image"
-          src="${product.image}"
-          alt="${product.name}"
-        >
-
-        <div class="item-name">
-          ${product.name}
-        </div>
+        <h2>${product.name}</h2>
 
         <div class="price">
-          ${Number(product.price).toLocaleString()}₮
+          ${product.price.toLocaleString()}₮
         </div>
 
         <div class="stock">
@@ -547,10 +422,9 @@ function showProducts(){
         </div>
 
         <button
-          class="order"
-          onclick="orderItem('${product.name}')"
-        >
-          🛒 ORDER NOW
+          class="buy"
+          onclick="buy(${product.id})">
+          🛒 BUY NOW
         </button>
 
       </div>
@@ -562,292 +436,255 @@ function showProducts(){
 }
 
 
-/* ORDER */
+/* REGISTER */
 
-function orderItem(name){
+function openRegister(){
+  closeAll();
+  document.getElementById(
+    "registerModal"
+  ).style.display="block";
+}
+
+
+function register(){
+
+  const username =
+    document.getElementById("regUsername").value.trim();
+
+  const email =
+    document.getElementById("regEmail").value.trim();
+
+  const password =
+    document.getElementById("regPassword").value;
+
+  if(!username || !email || !password){
+
+    alert("Бүх талбарыг бөглөнө үү.");
+
+    return;
+  }
+
+  /*
+    DEMO ONLY.
+
+    Жинхэнэ хувилбарт password-ыг
+    localStorage-д хадгалахгүй.
+    Supabase Authentication ашиглана.
+  */
+
+  currentUser = {
+    username:username,
+    email:email
+  };
+
+  updateUserUI();
+
+  alert("✅ Account амжилттай үүслээ!");
+
+  closeAll();
+
+}
+
+
+/* LOGIN */
+
+function openLogin(){
+  closeAll();
+
+  document.getElementById(
+    "loginModal"
+  ).style.display="block";
+}
+
+
+function login(){
+
+  const email =
+    document.getElementById("loginEmail").value.trim();
+
+  const password =
+    document.getElementById("loginPassword").value;
+
+  if(!email || !password){
+
+    alert("Email болон password оруулна уу.");
+
+    return;
+  }
+
+  /*
+    DEMO ONLY.
+    Жинхэнэ login backend authentication-тай байна.
+  */
+
+  currentUser = {
+    username:email.split("@")[0],
+    email:email
+  };
+
+  updateUserUI();
+
+  alert("✅ Login амжилттай!");
+
+  closeAll();
+
+}
+
+
+/* USER UI */
+
+function updateUserUI(){
+
+  document.getElementById(
+    "profileBtn"
+  ).classList.remove("hidden");
+
+  document.getElementById(
+    "logoutBtn"
+  ).classList.remove("hidden");
+
+  document.getElementById(
+    "usernameText"
+  ).textContent =
+    currentUser.username;
+
+}
+
+
+/* LOGOUT */
+
+function logout(){
+
+  currentUser = null;
+
+  document.getElementById(
+    "profileBtn"
+  ).classList.add("hidden");
+
+  document.getElementById(
+    "logoutBtn"
+  ).classList.add("hidden");
+
+}
+
+
+/* BUY */
+
+function buy(id){
+
+  if(!currentUser){
+
+    alert(
+      "🛑 Худалдан авахын өмнө Register/Login хийнэ үү."
+    );
+
+    openLogin();
+
+    return;
+  }
+
+  selectedProduct =
+    products.find(p => p.id === id);
+
+  document.getElementById(
+    "checkoutName"
+  ).textContent =
+    selectedProduct.name;
+
+  document.getElementById(
+    "checkoutPrice"
+  ).textContent =
+    selectedProduct.price.toLocaleString()
+    + "₮";
+
+  closeAll();
+
+  document.getElementById(
+    "checkoutModal"
+  ).style.display="block";
+
+}
+
+
+/* PAYMENT */
+
+function checkPayment(){
+
+  /*
+    ЭНЭ БОЛ DEMO.
+
+    Жинхэнэ QPay төлбөрийг client-side
+    alert-аар баталгаажуулж болохгүй.
+
+    Backend QPay API-аас төлбөрийн
+    status шалгана.
+  */
+
+  const paid =
+    confirm(
+      "Demo: QPay төлбөр төлөгдсөн гэж үзэх үү?"
+    );
+
+  if(!paid) return;
+
+  closeAll();
+
+  document.getElementById(
+    "deliveryModal"
+  ).style.display="block";
+
+}
+
+
+/* DELIVERY */
+
+function showDelivery(){
+
+  /*
+    Жинхэнэ бүтээгдэхүүний account credentials
+    backend/database дээр хамгаалагдсан байх ёстой.
+  */
+
+  document.getElementById(
+    "deliveryText"
+  ).innerHTML = `
+    <br>
+    📦 Таны захиалга бэлэн боллоо.<br><br>
+    Account-ийн хүргэлтийн мэдээллийг
+    баталгаатай delivery системээс авна.
+  `;
+
+}
+
+
+/* PROFILE */
+
+function openProfile(){
+
+  if(!currentUser) return;
 
   alert(
-    "🛒 " +
-    name +
-    " захиалах хэсэг удахгүй нээгдэнэ!"
+    "👤 Username: "
+    + currentUser.username
+    + "\n📧 Email: "
+    + currentUser.email
   );
 
 }
 
 
-/* ADMIN OPEN */
+/* CLOSE */
 
-function openAdmin(){
+function closeAll(){
 
-  document.getElementById(
-    "adminPanel"
-  ).style.display="block";
-
-  showAdmin();
-
-}
-
-
-/* ADMIN CLOSE */
-
-function closeAdmin(){
-
-  document.getElementById(
-    "adminPanel"
-  ).style.display="none";
+  document
+    .querySelectorAll(".modal")
+    .forEach(modal=>{
+      modal.style.display="none";
+    });
 
 }
 
-
-/* ADMIN ITEMS */
-
-function showAdmin(){
-
-  const box =
-    document.getElementById("adminProducts");
-
-  box.innerHTML="";
-
-  products.forEach(product=>{
-
-    box.innerHTML += `
-
-      <div class="admin-card">
-
-        <h3>
-          📦 ${product.name}
-        </h3>
-
-        <label>Name</label>
-
-        <input
-          id="name-${product.id}"
-          value="${product.name}"
-        >
-
-        <label>Price</label>
-
-        <input
-          id="price-${product.id}"
-          type="number"
-          value="${product.price}"
-        >
-
-        <label>Stock</label>
-
-        <input
-          id="stock-${product.id}"
-          type="number"
-          value="${product.stock}"
-        >
-
-        <label>Image URL</label>
-
-        <input
-          id="image-${product.id}"
-          value="${product.image}"
-        >
-
-        <button
-          class="save"
-          onclick="updateProduct(${product.id})"
-        >
-          💾 SAVE
-        </button>
-
-        <button
-          class="delete"
-          onclick="deleteProduct(${product.id})"
-        >
-          🗑️ DELETE
-        </button>
-
-      </div>
-
-    `;
-
-  });
-
-}
-
-
-/* ADD */
-
-function addProduct(){
-
-  const name =
-    document.getElementById(
-      "newName"
-    ).value.trim();
-
-  const price =
-    Number(
-      document.getElementById(
-        "newPrice"
-      ).value
-    );
-
-  const stock =
-    Number(
-      document.getElementById(
-        "newStock"
-      ).value
-    );
-
-  const image =
-    document.getElementById(
-      "newImage"
-    ).value.trim();
-
-
-  if(!name || !price){
-
-    alert(
-      "⚠️ Item name болон price оруулна уу."
-    );
-
-    return;
-  }
-
-
-  products.push({
-
-    id:Date.now(),
-
-    name:name,
-
-    price:price,
-
-    stock:stock || 0,
-
-    image:
-      image ||
-      "https://placehold.co/800x500/101b30/00ffe0?text=NEW+ITEM",
-
-    popular:false
-
-  });
-
-
-  saveProducts();
-
-  showProducts();
-
-  showAdmin();
-
-
-  document.getElementById(
-    "newName"
-  ).value="";
-
-  document.getElementById(
-    "newPrice"
-  ).value="";
-
-  document.getElementById(
-    "newStock"
-  ).value="";
-
-  document.getElementById(
-    "newImage"
-  ).value="";
-
-
-  alert("✅ Item нэмэгдлээ!");
-
-}
-
-
-/* UPDATE */
-
-function updateProduct(id){
-
-  const product =
-    products.find(
-      p=>p.id===id
-    );
-
-  if(!product)return;
-
-
-  product.name =
-    document.getElementById(
-      "name-"+id
-    ).value;
-
-  product.price =
-    Number(
-      document.getElementById(
-        "price-"+id
-      ).value
-    );
-
-  product.stock =
-    Number(
-      document.getElementById(
-        "stock-"+id
-      ).value
-    );
-
-  product.image =
-    document.getElementById(
-      "image-"+id
-    ).value;
-
-
-  saveProducts();
-
-  showProducts();
-
-  showAdmin();
-
-  alert("✅ Item шинэчлэгдлээ!");
-
-}
-
-
-/* DELETE */
-
-function deleteProduct(id){
-
-  if(
-    !confirm(
-      "Энэ item-ийг устгах уу?"
-    )
-  ){
-    return;
-  }
-
-
-  products =
-    products.filter(
-      p=>p.id!==id
-    );
-
-
-  saveProducts();
-
-  showProducts();
-
-  showAdmin();
-
-}
-
-
-/* SCROLL */
-
-function scrollToShop(){
-
-  document.getElementById(
-    "shop"
-  ).scrollIntoView({
-    behavior:"smooth"
-  });
-
-}
-
-
-/* START */
 
 showProducts();
 
